@@ -33,11 +33,12 @@
             <items>
                   <Menu mnemonicParsing="false" text="Save as">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="TSV" />
-                        <MenuItem mnemonicParsing="false" text="HTML" />
-                        <MenuItem mnemonicParsing="false" text="JSON" />
+                      <MenuItem mnemonicParsing="false" onAction="#saveAsTSVFile" text="TSV" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsHTMLFile" text="HTML" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsJSONFile" text="JSOn" />
                     </items>
                   </Menu>
+                  <MenuItem mnemonicParsing="false" text="Load" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

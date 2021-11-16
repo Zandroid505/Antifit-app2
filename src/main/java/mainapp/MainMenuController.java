@@ -12,8 +12,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import com.google.gson.JsonObject;
 
 public class MainMenuController implements Initializable {
     private Inventory inventory = new Inventory();
@@ -106,9 +108,66 @@ public class MainMenuController implements Initializable {
         //Redisplay currInventory in tableView
     }
 
-    public void saveFile() {
+    public void saveAsTSVFile() {
         //Open file explorer
-        //Let user choose where to save to do list(s)
-        //Save to location
+
+        //get user chosen file
+
+        //saveSystem(user chosen file, createTSVFile())
     }
+
+    public void saveAsHTMLFile() {
+        //Open file explorer
+
+        //get user chosen file
+
+        //saveSystem(user chosen file, createHTMLFile())
+    }
+
+    public void saveAsJSONFile() {
+        //Open file explorer
+
+        //get user chosen file
+
+        //saveSystemAsJsonObject(user chosen file, createJsonFile())
+    }
+
+    private void saveSystem(File outFile, String listText) {
+
+        //try
+            //Write text to File
+        //catch(FileNotFoundException)
+            //errorSavingInventoryMessage()
+    }
+
+    private void saveSystemAsJsonObject(File outFile, JsonObject jsonObject) {
+        //try
+            //Write json object to File
+        //catch(FileNotFoundException)
+            //errorSavingInventoryMessage()
+    }
+
+    private void errorSavingInventoryMessage() {
+        //Display error message if file could not be saved
+    }
+
+    public void loadInventoryToTable() {
+        //Open file explorer
+
+        //get user chosen file
+
+        //if(.txt)
+            //openTSVFile(user chosen file)
+        //if(.html)
+            //openHTMLFile(user chosen file)
+        //if(.json)
+            //openJsonFile(user chosen file)
+
+
+    }
+
+    private void errorOpeningInventoryMessage() {
+        //Display error message if file could not be opened
+    }
+
 }

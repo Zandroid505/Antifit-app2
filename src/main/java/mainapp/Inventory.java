@@ -6,8 +6,10 @@
 package mainapp;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
+import com.google.gson.JsonObject;
 import javafx.collections.ObservableList;
+
+import java.io.File;
 
 public class Inventory {
     private ObservableList<Item> currInventory = FXCollections.observableArrayList();
@@ -85,7 +87,40 @@ public class Inventory {
     }
 
     public String createTSVFile() {
+        //Use StringBuilder to format text into TSV format
+        //return StringBuilder as String
+    }
 
+    public String createHTMLFile() {
+        //Use StringBuilder to format text into HTML format
+        //return StringBuilder as String
+    }
+
+    public JsonObject createJsonFile() {
+        //Create JSON object
+        //Assign items to it
+        //return JSON object
+    }
+
+    public boolean openTSVFile(File inventoryFile) {
+        //try
+            //Read in item info
+        //catch(IOException | NoSuchElementException | IllegalStateException)
+            //return false
+    }
+
+    public boolean openHTMLFile(File inventoryFile) {
+        //try
+            //Read in item info
+        //catch(IOException | NoSuchElementException | IllegalStateException)
+            //return false
+    }
+
+    public boolean openJsonFile(File inventoryFile) {
+        //try
+            //Read in item info
+        //catch(IOException | NoSuchElementException | IllegalStateException)
+            //return false
     }
 
 
