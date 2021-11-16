@@ -16,11 +16,10 @@ import java.io.IOException;
 public class InventoryManagementApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 
-        primaryStage.setTitle("To-do list");
+        primaryStage.setTitle("Inventory Manager");
         primaryStage.setScene(new Scene(root));
-        //Scene manager!!!!
 
         primaryStage.show();
     }

@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainapp.EditItemController">
    <children>
       <BorderPane prefHeight="342.0" prefWidth="295.0">
          <top>
-            <Label text="New Item" BorderPane.alignment="CENTER">
+            <Label text="Edit item" BorderPane.alignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
@@ -26,7 +25,7 @@
                <children>
                   <Label text="Name">
                      <VBox.margin>
-                        <Insets left="25.0" top="20.0" />
+                        <Insets left="25.0" top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font size="20.0" />
@@ -54,17 +53,17 @@
          <center>
             <VBox maxHeight="-Infinity" prefHeight="273.0" prefWidth="195.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField maxWidth="-Infinity" prefWidth="175.0">
+                  <TextField fx:id="nameTextField" maxWidth="-Infinity" prefWidth="175.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
-                  <TextField maxWidth="-Infinity" prefWidth="175.0">
+                  <TextField fx:id="serialNumTextField" maxWidth="-Infinity" prefWidth="175.0">
                      <VBox.margin>
                         <Insets top="55.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="175.0">
+                  <TextField fx:id="valueTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="175.0">
                      <VBox.margin>
                         <Insets top="55.0" />
                      </VBox.margin>
@@ -76,14 +75,14 @@
             </VBox>
          </center>
          <bottom>
-            <HBox prefHeight="35.0" prefWidth="308.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="13.0" prefWidth="295.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Add">
+                  <Button mnemonicParsing="false" onAction="#updateButtonPressed" prefWidth="80.0" text="Update">
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets bottom="5.0" left="100.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Cancel">
+                  <Button mnemonicParsing="false" onAction="#cancelButtonPressed" prefWidth="80.0" text="Cancel">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>
