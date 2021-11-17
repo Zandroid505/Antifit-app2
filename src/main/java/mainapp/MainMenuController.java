@@ -47,6 +47,7 @@ public class MainMenuController implements Initializable {
 
     public void addItemButtonPressed() {
         //Open addItem scene
+
     }
 
     public void deleteItemButtonPressed() {
