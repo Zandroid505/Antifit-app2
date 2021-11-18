@@ -89,17 +89,20 @@ public class Inventory {
     public String createTSVFile() {
         //Use StringBuilder to format text into TSV format
         //return StringBuilder as String
+        return "";
     }
 
     public String createHTMLFile() {
         //Use StringBuilder to format text into HTML format
         //return StringBuilder as String
+        return "";
     }
 
     public JsonObject createJsonFile() {
         //Create JSON object
         //Assign items to it
         //return JSON object
+        return null;
     }
 
     public boolean openTSVFile(File inventoryFile) {
@@ -107,6 +110,7 @@ public class Inventory {
             //Read in item info
         //catch(IOException | NoSuchElementException | IllegalStateException)
             //return false
+        return false;
     }
 
     public boolean openHTMLFile(File inventoryFile) {
@@ -114,6 +118,7 @@ public class Inventory {
             //Read in item info
         //catch(IOException | NoSuchElementException | IllegalStateException)
             //return false
+        return false;
     }
 
     public boolean openJsonFile(File inventoryFile) {
@@ -121,6 +126,7 @@ public class Inventory {
             //Read in item info
         //catch(IOException | NoSuchElementException | IllegalStateException)
             //return false
+        return false;
     }
 
 
