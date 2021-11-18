@@ -5,6 +5,7 @@
 
 package mainapp;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -16,8 +17,11 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.google.gson.JsonObject;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class MainMenuController implements Initializable {
+    private SceneManager sceneManager = new SceneManager();
     private Inventory inventory = new Inventory();
 
     //TableView
@@ -27,26 +31,37 @@ public class MainMenuController implements Initializable {
     @FXML private TableColumn<Item, Double> valueColumn;
 
     @FXML private TextField searchTextField;
-    @FXML private ChoiceBox<String> sortBy;
-    @FXML private ChoiceBox<String> directionOfSort;
+    @FXML private ChoiceBox<String> sortBy = new ChoiceBox<>();
+    @FXML private ChoiceBox<String> directionOfSort = new ChoiceBox<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Set initial directory
+        //Initialize scene manager
+        sceneManager.load();
 
         //Set cell values for tableView
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        serialNumColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("completion"));
 
         //Set items in tableview to inventory's observableList
+        inventoryTableView.setItems(inventory.getCurrInventory());
 
         //sortByStr = "None", "Name", "Serial #", "Value"
         //sortBy(sortByStr)
+        sortBy.setItems(FXCollections.observableArrayList("None", "Name", "Serial #", "Value"));
 
         //directionOfSortStr = "n/a", "Ascending", "Descending"
         //directionOfSort(directionOfSortStr)
+        directionOfSort.setItems(FXCollections.observableArrayList("n/a", "Ascending", "Descending"));
     }
 
     public void addItemButtonPressed() {
         //Open addItem scene
+        Stage stage = new Stage();
+        stage.setTitle("Add New Item");
+        stage.setScene(sceneManager.getScene("AddItem"));
+        stage.show();
 
     }
 

@@ -5,12 +5,10 @@
 
 package mainapp;
 
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
