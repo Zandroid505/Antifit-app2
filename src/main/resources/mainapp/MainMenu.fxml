@@ -34,8 +34,8 @@
                   <Menu mnemonicParsing="false" text="Save as">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#saveAsTSVFile" text="TSV" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAsHTMLFile" text="HTML" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAsJSONFile" text="JSOn" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveFileAsHTMLFile" text="HTML" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveFileAsJSONFile" text="JSOn" />
                     </items>
                   </Menu>
                   <MenuItem mnemonicParsing="false" text="Load" />
