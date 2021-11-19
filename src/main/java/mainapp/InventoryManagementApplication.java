@@ -5,33 +5,30 @@
 
 package mainapp;
 
+import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class InventoryManagementApplication extends Application {
     private SceneManager sceneManager = new SceneManager();
+    private MainMenuController mainMenuController = new MainMenuController();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-//
-//        primaryStage.setTitle("Inventory Manager");
-//        primaryStage.setScene(new Scene(root));
-//
-//        primaryStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 
-        //Initialize scenes
-        sceneManager.load();
+        primaryStage.setTitle("Inventory Manager");
+        primaryStage.setScene(new Scene(root));
 
-        Stage stage = new Stage();
-        stage.setTitle("Inventory Manager");
-        stage.setScene(sceneManager.getScene("MainMenu"));
-        stage.show();
+        primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {

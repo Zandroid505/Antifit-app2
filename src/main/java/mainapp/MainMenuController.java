@@ -8,28 +8,28 @@ package mainapp;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-
-import java.awt.event.ActionEvent;
+import javafx.scene.control.*;
 import java.io.File;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import com.google.gson.JsonObject;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class MainMenuController implements Initializable {
-    private SceneManager sceneManager = new SceneManager();
     private Inventory inventory = new Inventory();
 
     //TableView
     @FXML private TableView<Item> inventoryTableView;
     @FXML private TableColumn<Item, String> nameColumn;
     @FXML private TableColumn<Item, String> serialNumColumn;
-    @FXML private TableColumn<Item, Double> valueColumn;
+    @FXML private TableColumn<Item, String> valueColumn;
+
+    @FXML private TextField nameTextField;
+    @FXML private TextField serialNumTextField;
+    @FXML private TextField valueTextField;
 
     @FXML private TextField searchTextField;
     @FXML private ChoiceBox<String> sortBy = new ChoiceBox<>();
@@ -40,10 +40,21 @@ public class MainMenuController implements Initializable {
         //Set cell values for tableView
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         serialNumColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<>("completion"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         //Set items in tableview to inventory's observableList
         inventoryTableView.setItems(inventory.getCurrInventory());
+
+        inventoryTableView.setEditable(true);
+
+        //Make description editable
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        //Make deadline editable
+        serialNumColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        //Make value editable
+        valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         //sortByStr = "None", "Name", "Serial #", "Value"
         //sortBy(sortByStr)
@@ -55,11 +66,96 @@ public class MainMenuController implements Initializable {
     }
 
     public void addItemButtonPressed() {
-        //Open addItem scene
-        Stage stage = new Stage();
-        stage.setTitle("Add New Item");
-        stage.setScene(sceneManager.getScene("AddItem"));
-        stage.show();
+        //get name from textField
+        String newName = nameTextField.getText();
+
+        //get serialNumber from textField
+        String newSerialNum = serialNumTextField.getText();
+
+        //get value from textField
+        String newValue = valueTextField.getText();
+
+        //if(nameInvalidMessage(validateItemName()) && serialNumInvalidMessage(validateItemSerialNum())
+        //              && valueInvalidMessage(validateItemValue()))
+        if(nameInvalidMessage(inventory.validateItemName(newName)) && serialNumInvalidMessage(inventory.validateItemSerialNum(newSerialNum))
+                && valueInvalidMessage(inventory.validateItemValue(newValue))) {
+
+            //Parse String value to Double
+            
+            String newNumValue = NumberFormat.getCurrencyInstance(Locale.US).format(newValue);
+
+            //Create Item object with info
+            Item newItem = new Item(newName, newSerialNum, newNumValue);
+
+            //Add new item object to inventory
+            inventory.addItemToInventory(newItem);
+        }
+    }
+
+    private boolean nameInvalidMessage(boolean nameValid) {
+        //if(nameValid == false)
+        if(!nameValid) {
+            //new Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+            //Title: "Inputted name is not valid"
+            errorAlert.setTitle("Inputted name is not valid");
+
+            //Header: "The name you inputted is in invalid"
+            errorAlert.setHeaderText("The name you inputted is in invalid");
+
+            //Content: "A name must be between 2-256 chars"
+            errorAlert.setContentText("A name must be between 2-256 chars");
+
+            //showAndWait
+            errorAlert.showAndWait();
+            return false;
+        } else
+            return true;
+    }
+
+    private boolean serialNumInvalidMessage(boolean serialNumValid) {
+        //if(serialNumValid == false)
+        if(!serialNumValid) {
+            //new Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+            //Title: "Inputted serial number is not valid"
+            errorAlert.setTitle("Inputted serial number is not valid");
+
+            //Header: "The serial number you entered either exists already or is not in the correct format"
+            errorAlert.setHeaderText("The serial number you entered either exists already or is not in the correct format");
+
+            //Content: "A serial number must not already exist in an inventory and the format must be A-XXX-XXX-XXX"
+            errorAlert.setContentText("A serial number must not already exist in an inventory and the format must be A-XXX-XXX-XXX");
+
+            //showAndWait
+            errorAlert.showAndWait();
+            return false;
+        } else
+            return true;
+    }
+
+    private boolean valueInvalidMessage(boolean valueValid) {
+        //if(serialNumValid == false)
+        if(!valueValid) {
+            //new Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+            //Title: "Inputted value is not valid"
+            errorAlert.setTitle("Inputted value is not valid");
+
+            //Header: "The value you have entered is either not a number or not greater than or equal to 0"
+            errorAlert.setHeaderText("The value you have entered is either not a number or not greater than or equal to 0");
+
+            //Content: "A value must be a number greater than or equal to 0"
+            errorAlert.setContentText("A value must be a number greater than or equal to 0");
+
+            //showAndWait
+            errorAlert.showAndWait();
+            return false;
+        } else
+            return true;
     }
 
     public void deleteItemButtonPressed() {

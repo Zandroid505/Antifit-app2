@@ -19,7 +19,7 @@ public class Inventory {
             //return true
         //else
             //return false
-        return false;
+        return name.length() >= 2 && name.length() <= 256 && !name.isBlank();
     }
 
     public boolean validateItemSerialNum(String serialNum) {
@@ -27,19 +27,46 @@ public class Inventory {
             //return true
         //else
             //return false
-        return false;
+        return (serialNum.matches("^[a-zA-Z]-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$")
+                && !serialNumExists(serialNum) && !serialNum.isBlank());
     }
 
+    private boolean serialNumExists(String serialNum) {
+        //Check if serial num already exists
+        boolean found = false;
+
+        for(Item i: currInventory) {
+            if(i.getSerialNumber().matches(serialNum)) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+
     public boolean validateItemValue(String value) {
+        boolean found = false;
+
         //if(value is number && 0 or greater && is not empty)
-            //return true
+        try {
+            double numValue = Double.parseDouble(value);
+
+            if(numValue >= 0 && !value.isBlank())
+                //return true
+                found = true;
+        } catch(NumberFormatException e) {
+            found = false;
+        }
         //else
             //return false
-        return false;
+        return found;
     }
 
     public void addItemToInventory(Item newItem) {
         //Add newItem to currInventory
+        currInventory.add(newItem);
     }
 
     public void deleteItemFromInventory(Item itemToDelete) {

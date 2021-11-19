@@ -5,16 +5,18 @@
 
 package mainapp;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Item {
     private SimpleStringProperty name;
     private SimpleStringProperty serialNumber;
-    private SimpleDoubleProperty value;
+    private SimpleStringProperty value;
 
-    public Item(String name, String serialNumber, double value) {
+    public Item(String name, String serialNumber, String value) {
         //Initialize class fields to parameters
+        this.name = new SimpleStringProperty(name);
+        this.serialNumber = new SimpleStringProperty(serialNumber);
+        this.value = new SimpleStringProperty(value);
     }
 
     public String getName() {
@@ -41,15 +43,15 @@ public class Item {
         this.serialNumber.set(serialNumber);
     }
 
-    public double getValue() {
+    public String getValue() {
         return value.get();
     }
 
-    public SimpleDoubleProperty valueProperty() {
+    public SimpleStringProperty valueProperty() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(String value) {
         this.value.set(value);
     }
 }
