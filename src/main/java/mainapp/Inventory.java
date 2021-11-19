@@ -64,6 +64,11 @@ public class Inventory {
         return found;
     }
 
+    public double roundValue(String value) {
+        double = Double.parseDouble(value);
+        
+    }
+
     public void addItemToInventory(Item newItem) {
         //Add newItem to currInventory
         currInventory.add(newItem);
