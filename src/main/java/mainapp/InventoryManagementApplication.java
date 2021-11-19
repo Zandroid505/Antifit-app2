@@ -14,14 +14,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class InventoryManagementApplication extends Application {
+    private SceneManager sceneManager = new SceneManager();
+
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+//
+//        primaryStage.setTitle("Inventory Manager");
+//        primaryStage.setScene(new Scene(root));
+//
+//        primaryStage.show();
 
-        primaryStage.setTitle("Inventory Manager");
-        primaryStage.setScene(new Scene(root));
+        //Initialize scenes
+        sceneManager.load();
 
-        primaryStage.show();
+        Stage stage = new Stage();
+        stage.setTitle("Inventory Manager");
+        stage.setScene(sceneManager.getScene("MainMenu"));
+        stage.show();
     }
 
     public static void main(String[] args) {

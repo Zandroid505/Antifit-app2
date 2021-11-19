@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,9 +37,6 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Initialize scene manager
-        sceneManager.load();
-
         //Set cell values for tableView
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         serialNumColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
@@ -62,7 +60,6 @@ public class MainMenuController implements Initializable {
         stage.setTitle("Add New Item");
         stage.setScene(sceneManager.getScene("AddItem"));
         stage.show();
-
     }
 
     public void deleteItemButtonPressed() {
