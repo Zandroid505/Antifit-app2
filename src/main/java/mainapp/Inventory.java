@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Inventory {
     private ObservableList<Item> currInventory = FXCollections.observableArrayList();
@@ -64,9 +66,12 @@ public class Inventory {
         return found;
     }
 
-    public double roundValue(String value) {
-        double = Double.parseDouble(value);
-        
+    public String formatValue(String value) {
+        double newValue= Double.parseDouble(value);
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
+        return formatter.format(newValue);
     }
 
     public void addItemToInventory(Item newItem) {

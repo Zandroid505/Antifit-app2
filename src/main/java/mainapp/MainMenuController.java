@@ -41,7 +41,7 @@ public class MainMenuController implements Initializable {
         //Set cell values for tableView
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         serialNumColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
-        //valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         //Set items in tableview to inventory's observableList
         inventoryTableView.setItems(inventory.getCurrInventory());
@@ -81,10 +81,10 @@ public class MainMenuController implements Initializable {
         if(nameInvalidMessage(inventory.validateItemName(newName)) && serialNumInvalidMessage(inventory.validateItemSerialNum(newSerialNum))
                 && valueInvalidMessage(inventory.validateItemValue(newValue))) {
 
-
+            String formattedValue = inventory.formatValue(newValue);
 
             //Create Item object with info
-            Item newItem = new Item(newName, newSerialNum, newValue);
+            Item newItem = new Item(newName, newSerialNum, formattedValue);
 
             //Add new item object to inventory
             inventory.addItemToInventory(newItem);
