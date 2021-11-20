@@ -18,11 +18,11 @@
    <children>
       <BorderPane layoutX="101.0" layoutY="100.0" prefHeight="367.0" prefWidth="531.0">
          <center>
-            <TableView fx:id="inventoryTableView" onMouseClicked="#editItemMouseClick" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="inventoryTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" prefWidth="335.3332824707031" text="Name" />
-                <TableColumn fx:id="serialNumColumn" prefWidth="120.00006103515625" text="Serial #" />
-                  <TableColumn fx:id="valueColumn" prefWidth="75.33331298828125" text="Value ($)" />
+                <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" onEditCommit="#editNameCellEvent" prefWidth="335.3332824707031" text="Name" />
+                <TableColumn fx:id="serialNumColumn" onEditCommit="#editSerialNumCellEvent" prefWidth="120.00006103515625" text="Serial #" />
+                  <TableColumn fx:id="valueColumn" onEditCommit="#editValueCellEvent" prefWidth="75.33331298828125" text="Value ($)" />
               </columns>
             </TableView>
          </center>
@@ -43,7 +43,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#clearAllItemsButtonPressed" text="Clear all items" />
+              <MenuItem mnemonicParsing="false" onAction="#clearAllItemsButtonPressed" text="Clear inventory" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

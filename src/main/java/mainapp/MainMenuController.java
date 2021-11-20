@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class MainMenuController implements Initializable {
-    private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
     private Inventory inventory = new Inventory();
 
     //TableView
@@ -48,10 +47,10 @@ public class MainMenuController implements Initializable {
 
         inventoryTableView.setEditable(true);
 
-        //Make description editable
+        //Make name editable
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        //Make deadline editable
+        //Make serial # editable
         serialNumColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         //Make value editable
@@ -88,6 +87,11 @@ public class MainMenuController implements Initializable {
 
             //Add new item object to inventory
             inventory.addItemToInventory(newItem);
+
+            //Clear text fields
+            nameTextField.clear();
+            serialNumTextField.clear();
+            valueTextField.clear();
         }
     }
 
@@ -123,7 +127,7 @@ public class MainMenuController implements Initializable {
             errorAlert.setTitle("Inputted serial number is not valid");
 
             //Header: "The serial number you entered either exists already or is not in the correct format"
-            errorAlert.setHeaderText("The serial number you entered either exists already or is not in the correct format");
+            errorAlert.setHeaderText("The serial number you entered either already exists or is not in the correct format");
 
             //Content: "A serial number must not already exist in an inventory and the format must be A-XXX-XXX-XXX"
             errorAlert.setContentText("A serial number must not already exist in an inventory and the format must be A-XXX-XXX-XXX");
@@ -168,24 +172,55 @@ public class MainMenuController implements Initializable {
 
     public void clearAllItemsButtonPressed() {
         //Call clearAllItems()
+        inventory.clearAllItems();
     }
 
-    public void editItemMouseClick() {
-        //if(mouseClickCount == 2)
-            //Open editItem scene
+    public void editNameCellEvent(TableColumn.CellEditEvent<Item, String> editedCell) {
+        //Double click to edit
+        if(inventory.validateItemName(editedCell.getNewValue())) {
+            Item selectedTask = inventoryTableView.getSelectionModel().getSelectedItem();
+            inventory.editName(editedCell.getNewValue(), selectedTask);
+        } else
+            nameInvalidMessage(false);
+    }
+
+    public void editSerialNumCellEvent(TableColumn.CellEditEvent<Item, String> editedCell) {
+        //Double click to edit
+        if(inventory.validateItemSerialNum(editedCell.getNewValue())) {
+            Item selectedTask = inventoryTableView.getSelectionModel().getSelectedItem();
+            inventory.editSerialNum(editedCell.getNewValue(), selectedTask);
+        } else
+            serialNumInvalidMessage(false);
+    }
+
+    public void editValueCellEvent(TableColumn.CellEditEvent<Item, String> editedCell) {
+        //Double click to edit
+        if(inventory.validateItemValue(editedCell.getNewValue())) {
+            Item selectedTask = inventoryTableView.getSelectionModel().getSelectedItem();
+            inventory.editValue(editedCell.getNewValue(), selectedTask);
+        } else
+            valueInvalidMessage(false);
     }
 
     public void searchButtonPressed() {
         //searchText = text field
+        String searchText = searchTextField.getText();
+
         //Item foundItem
+        Item foundItem;
 
         //if(checkIfSerialNumber(searchText))
+        if(inventory.checkIfSerialNumber(searchText))
             //foundItem = searchBySerialNumber()
+            foundItem = inventory.searchBySerialNumber(searchText);
         //else
+        else
             //foundItem = searchByName(searchText)
+            foundItem = inventory.searchByName(searchText);
 
         //if(foundItem != null)
-            //Popup with Item info
+        if(foundItem != null)
+            //Display item in tableView
         //else
             //Display popup with message saying "Could not find item"
     }

@@ -81,10 +81,24 @@ public class Inventory {
 
     public void deleteItemFromInventory(Item itemToDelete) {
         //Delete selected item
+        currInventory.remove(itemToDelete);
     }
 
     public void clearAllItems() {
         //clear all items from currInventory
+        currInventory.clear();
+    }
+
+    public void editName(String name, Item selectedItem) {
+        selectedItem.setName(name);
+    }
+
+    public void editSerialNum(String serialNum, Item selectedItem) {
+        selectedItem.setSerialNumber(serialNum);
+    }
+
+    public void editValue(String value, Item selectedItem) {
+        selectedItem.setValue(value);
     }
 
     public boolean checkIfSerialNumber(String searchText) {
@@ -92,23 +106,41 @@ public class Inventory {
             //return true
         //else
             //return false
-        return false;
+        return searchText.matches("^[a-zA-Z]-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$");
     }
 
-    public Item searchBySerialNumber(String serialNumberQuery) {
+    public Item searchBySerialNumber(String serialNumQuery) {
+        Item found = null;
+
         //if serialNumberQuery exists
             //return item that has the serial number
         //else
             //return null
-        return null;
+        for(Item i: currInventory) {
+            if(i.getSerialNumber().matches(serialNumQuery)) {
+                found = i;
+                break;
+            }
+        }
+
+        return found;
     }
 
     public Item searchByName(String nameQuery) {
+        Item found = null;
+
         //if nameQuery exists
             //return item that has the name
         //else
             //return null
-        return null;
+        for(Item i: currInventory) {
+            if(i.getName().matches(nameQuery)) {
+                found = i;
+                break;
+            }
+        }
+
+        return found;
     }
 
     public void sortByName(int direction) {
