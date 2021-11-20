@@ -159,8 +159,11 @@ public class MainMenuController implements Initializable {
 
     public void deleteItemButtonPressed() {
         //get selected task
+        Item selectedItem = inventoryTableView.getSelectionModel().getSelectedItem();
 
         //Call deleteItemFromInventory()
+        inventory.deleteItemFromInventory(selectedItem);
+
     }
 
     public void clearAllItemsButtonPressed() {

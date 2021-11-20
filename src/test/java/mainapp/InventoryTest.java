@@ -124,5 +124,5 @@ class InventoryTest {
         assertEquals(expected.getValue(), testInventory.getCurrInventory().get(0).getValue());
     }
 
-    
+
 }
