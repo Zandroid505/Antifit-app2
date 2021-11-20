@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.text.NumberFormat;
-import java.util.Locale;
 
 public class Inventory {
     private ObservableList<Item> currInventory = FXCollections.observableArrayList();
@@ -117,7 +116,7 @@ public class Inventory {
         //else
             //return null
         for(Item i: currInventory) {
-            if(i.getSerialNumber().matches(serialNumQuery)) {
+            if(i.getSerialNumber().equalsIgnoreCase(serialNumQuery)) {
                 found = i;
                 break;
             }
@@ -134,7 +133,7 @@ public class Inventory {
         //else
             //return null
         for(Item i: currInventory) {
-            if(i.getName().matches(nameQuery)) {
+            if(i.getName().equalsIgnoreCase(nameQuery)) {
                 found = i;
                 break;
             }

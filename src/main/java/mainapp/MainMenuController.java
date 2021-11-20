@@ -6,6 +6,7 @@
 package mainapp;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -219,15 +220,36 @@ public class MainMenuController implements Initializable {
             foundItem = inventory.searchByName(searchText);
 
         //if(foundItem != null)
-        if(foundItem != null)
+        if(foundItem != null) {
             //Display item in tableView
+            ObservableList<Item> newItem = FXCollections.observableArrayList();
+            newItem.add(foundItem);
+            inventoryTableView.refresh();
+            inventoryTableView.setItems(newItem);
+        }
         //else
+        else
             //Display popup with message saying "Could not find item"
+            couldNotFindItemMessage();
+    }
+
+    private void couldNotFindItemMessage() {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+            errorAlert.setTitle("Item not found");
+
+            errorAlert.setHeaderText("The item you are searching for does not exist.");
+
+            errorAlert.showAndWait();
     }
 
     public void cancelButtonPressed() {
         //Clear searchTextField
+        searchTextField.clear();
+
         //Reload Inventory into table
+        inventoryTableView.refresh();
+        inventoryTableView.setItems(inventory.getCurrInventory());
     }
 
     public void sortInventory() {
