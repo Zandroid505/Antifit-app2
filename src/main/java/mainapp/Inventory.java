@@ -5,12 +5,19 @@
 
 package mainapp;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import javafx.collections.FXCollections;
 import com.google.gson.JsonObject;
 import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Inventory {
     private ObservableList<Item> currInventory = FXCollections.observableArrayList();
@@ -156,8 +163,15 @@ public class Inventory {
 
     public String createTSVFile() {
         //Use StringBuilder to format text into TSV format
+        StringBuilder formattedInventory = new StringBuilder();
+        for(Item i: currInventory) {
+            formattedInventory.append(i.getName()).append("\t");
+            formattedInventory.append(i.getSerialNumber()).append("\t");
+            formattedInventory.append(i.getValue()).append("\t");
+            formattedInventory.append("\n");
+        }
         //return StringBuilder as String
-        return "";
+        return formattedInventory.toString();
     }
 
     public String createHTMLFile() {
@@ -166,19 +180,49 @@ public class Inventory {
         return "";
     }
 
-    public JsonObject createJsonFile() {
+    public JsonArray createJsonFile() {
         //Create JSON object
+        Gson gson = new Gson();
+        JsonObject obj = new JsonObject();
+        JsonArray jsonArray = new JsonArray();
+
+        obj.add("Item", jsonArray);
+
         //Assign items to it
+        for(Item i: currInventory) {
+           jsonArray.add(gson.toJson(i));
+        }
+
         //return JSON object
-        return null;
+        return jsonArray;
     }
 
     public boolean openTSVFile(File inventoryFile) {
         //try
+        try(Scanner inputFile = new Scanner(inventoryFile)) {
+            inputFile.useDelimiter("\t");
             //Read in item info
+            while(inputFile.hasNext()) {
+                String name = inputFile.next();
+                String serialNum = inputFile.next();
+                String value = inputFile.next();
+
+                Item itemToAdd = new Item(name, serialNum, value);
+
+                //Clear newline
+                inputFile.nextLine();
+
+                currInventory.add(itemToAdd);
+            }
+            return true;
+        }
         //catch(IOException | NoSuchElementException | IllegalStateException)
+        catch (IOException | NoSuchElementException | IllegalStateException e) {
+            e.printStackTrace();
+
             //return false
-        return false;
+            return false;
+        }
     }
 
     public boolean openHTMLFile(File inventoryFile) {
@@ -191,9 +235,21 @@ public class Inventory {
 
     public boolean openJsonFile(File inventoryFile) {
         //try
+        try {
             //Read in item info
+            FileReader fileReader = new FileReader(inventoryFile.getPath());
+
+            JsonObject obj = (JsonObject)JsonParser.parseReader(fileReader);
+
+            //JsonArray iterator = obj.getAsJsonArray()
+        }
         //catch(IOException | NoSuchElementException | IllegalStateException)
+        catch(IOException | NoSuchElementException | IllegalStateException e) {
+            e.printStackTrace();
+
             //return false
+            return false;
+        }
         return false;
     }
 

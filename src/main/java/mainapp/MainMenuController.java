@@ -5,12 +5,14 @@
 
 package mainapp;
 
+import com.google.gson.JsonArray;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import java.io.File;
+
+import java.io.*;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -18,8 +20,11 @@ import java.util.ResourceBundle;
 import com.google.gson.JsonObject;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MainMenuController implements Initializable {
+    private FileChooser fileChooser = new FileChooser();
     private Inventory inventory = new Inventory();
 
     //TableView
@@ -277,11 +282,19 @@ public class MainMenuController implements Initializable {
     }
 
     public void saveAsTSVFile() {
+        fileChooser.setTitle("Save Dialog");
+
+        fileChooser.setInitialFileName("newInventory");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text file", "*.txt"));
+
         //Open file explorer
-
-        //get user chosen file
-
-        //saveSystem(user chosen file, createTSVFile())
+        //Let user choose where to save to do list(s)
+        //Save to location
+        File tsvFile = fileChooser.showSaveDialog(new Stage());
+        if(tsvFile != null) {
+            saveSystem(tsvFile, inventory.createTSVFile());
+            fileChooser.setInitialDirectory(tsvFile.getParentFile());
+        }
     }
 
     public void saveAsHTMLFile() {
@@ -293,49 +306,112 @@ public class MainMenuController implements Initializable {
     }
 
     public void saveAsJSONFile() {
+        fileChooser.setTitle("Save Dialog");
+
+        fileChooser.setInitialFileName("newInventory");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("json file", "*.json"));
+
         //Open file explorer
-
         //get user chosen file
-
         //saveSystemAsJsonObject(user chosen file, createJsonFile())
+        File jsonFile = fileChooser.showSaveDialog(new Stage());
+        if(jsonFile != null) {
+            saveSystemAsJsonObject(jsonFile, inventory.createJsonFile());
+            fileChooser.setInitialDirectory(jsonFile.getParentFile());
+        }
     }
 
     private void saveSystem(File outFile, String listText) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         //try
+        try {
             //Write text to File
+            PrintWriter printWriter = new PrintWriter(outFile);
+            printWriter.write(listText);
+            printWriter.close();
+        }
         //catch(FileNotFoundException)
+        catch(FileNotFoundException e) {
             //errorSavingInventoryMessage()
+            errorAlert.setTitle("Error saving file");
+            errorAlert.setHeaderText("Couldn't save file");
+            errorAlert.showAndWait();
+        }
     }
 
-    private void saveSystemAsJsonObject(File outFile, JsonObject jsonObject) {
+    private void saveSystemAsJsonObject(File outFile, JsonArray jsonArray) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
         //try
-            //Write json object to File
+        try (FileWriter fileWriter = new FileWriter(outFile.getPath())){
+            fileWriter.write(jsonArray.toString());
+        }
         //catch(FileNotFoundException)
+        catch(IOException e) {
             //errorSavingInventoryMessage()
+            errorAlert.setTitle("Error saving file");
+            errorAlert.setHeaderText("Couldn't save file");
+            errorAlert.showAndWait();
+        }
     }
 
-    private void errorSavingInventoryMessage() {
-        //Display error message if file could not be saved
-    }
-
-    public void loadInventoryToTable() {
+    public void loadTSVFileIntoInventory() {
         //Open file explorer
+        fileChooser.setTitle("Load Dialog");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text file", "*.txt"));
 
         //get user chosen file
+        File inventoryFile = fileChooser.showOpenDialog(new Stage());
+        if(inventoryFile != null) {
+            fileChooser.setInitialDirectory(inventoryFile.getParentFile());
+            inventory.clearAllItems();
+            if(!inventory.openTSVFile(inventoryFile))
+                errorOpeningInventoryMessage();
+        }
+    }
+
+    public void loadHTMLFileIntoInventory() {
+        //Open file explorer
+        fileChooser.setTitle("Load Dialog");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("html file", "*.html"));
+
+        //get user chosen file
+        File listFile = fileChooser.showOpenDialog(new Stage());
 
         //if(.txt)
-            //openTSVFile(user chosen file)
+
+        //openTSVFile(user chosen file)
         //if(.html)
-            //openHTMLFile(user chosen file)
+        //openHTMLFile(user chosen file)
         //if(.json)
-            //openJsonFile(user chosen file)
+        //openJsonFile(user chosen file)
+    }
 
+    public void loadJsonFileIntoInventory() {
+        //Open file explorer
+        fileChooser.setTitle("Load Dialog");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("json file", "*.json"));
 
+        //get user chosen file
+        File listFile = fileChooser.showOpenDialog(new Stage());
+
+        //if(.txt)
+
+        //openTSVFile(user chosen file)
+        //if(.html)
+        //openHTMLFile(user chosen file)
+        //if(.json)
+        //openJsonFile(user chosen file)
     }
 
     private void errorOpeningInventoryMessage() {
         //Display error message if file could not be opened
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+        errorAlert.setTitle("Error opening file");
+        errorAlert.setHeaderText("Couldn't open file");
+        errorAlert.showAndWait();
     }
 
 }

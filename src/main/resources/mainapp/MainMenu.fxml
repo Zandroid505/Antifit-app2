@@ -35,10 +35,16 @@
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#saveAsTSVFile" text="TSV" />
                         <MenuItem mnemonicParsing="false" onAction="#saveAsHTMLFile" text="HTML" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAsJSONFile" text="JSOn" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsJSONFile" text="JSON" />
                     </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#loadInventoryToTable" text="Load" />
+                  <Menu mnemonicParsing="false" text="Load as">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#loadTSVFileIntoInventory" text="TSV" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadHTMLFileIntoInventory" text="HTML" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadJsonFileIntoInventory" text="JSON" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
