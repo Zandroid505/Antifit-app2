@@ -292,11 +292,9 @@ public class MainMenuController implements Initializable {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         //try
-        try {
+        try (PrintWriter printWriter = new PrintWriter(outFile);) {
             //Write text to File
-            PrintWriter printWriter = new PrintWriter(outFile);
             printWriter.write(listText);
-            printWriter.close();
         }
         //catch(FileNotFoundException)
         catch(FileNotFoundException e) {
@@ -311,8 +309,10 @@ public class MainMenuController implements Initializable {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         //try
-        try (FileWriter fileWriter = new FileWriter(outFile.getPath())){
-            fileWriter.write(jsonArray.toString());
+        try (PrintWriter printWriter = new PrintWriter(outFile)){
+            System.out.println(jsonArray.getAsString());
+
+            printWriter.write(jsonArray.getAsString());
         }
         //catch(FileNotFoundException)
         catch(IOException e) {
