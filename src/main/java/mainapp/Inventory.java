@@ -5,17 +5,16 @@
 
 package mainapp;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import javafx.collections.FXCollections;
-import com.google.gson.JsonObject;
 import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -170,15 +169,20 @@ public class Inventory {
 
     public JsonArray createJsonFile() {
         //Create JSON object
-        Gson gson = new Gson();
-        JsonObject obj = new JsonObject();
+        JsonObject tempObj = new JsonObject();
         JsonArray jsonArray = new JsonArray();
-
-        obj.add("Item", jsonArray);
 
         //Assign items to it
         for(Item i: currInventory) {
-           jsonArray.add(gson.toJson(i));
+            tempObj.addProperty("Name", i.getName());
+            tempObj.addProperty("Serial Number", i.getSerialNumber());
+            tempObj.addProperty("Value", i.getValue());
+
+            JsonObject obj = new JsonObject();
+            obj.add("Item", obj);
+
+            jsonArray.add(obj);
+
         }
 
         //return JSON object

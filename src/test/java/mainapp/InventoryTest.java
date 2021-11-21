@@ -212,5 +212,51 @@ class InventoryTest {
         assertEquals("25.00", actual.getValue());
     }
 
+    @Test
+    void checkIfYouCanSearchForItemByName() {
+        Inventory testInventory = new Inventory();
+
+        //Test item
+        Item expected = new Item("iPad Pro", "C-3T5-GY9-3DC", "599.99");
+
+        //Load search item into inventory
+        testInventory.addItemToInventory(expected);
+
+        //Load other dummy data into inventory
+        testInventory.addItemToInventory(new Item("Item1", "C-1T5-GB9-3HC", "45.87"));
+        testInventory.addItemToInventory(new Item("Item2", "C-1P5-GF9-3HC", "123.56"));
+        testInventory.addItemToInventory(new Item("Item3", "C-1K5-GL9-3HC", "299"));
+        testInventory.addItemToInventory(new Item("Item4", "C-1S5-GK9-3HC", "98.21"));
+
+        //Search for item
+        Item actual = testInventory.searchByName("iPad Pro");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void checkIfYouCanSearchForItemBySerialNumber() {
+        Inventory testInventory = new Inventory();
+
+        //Test item
+        Item expected = new Item("iPad Pro", "C-3T5-GY9-3DC", "599.99");
+
+        //Load search item into inventory
+        testInventory.addItemToInventory(expected);
+
+        //Load other dummy data into inventory
+        testInventory.addItemToInventory(new Item("Item1", "C-1T5-GB9-3HC", "45.87"));
+        testInventory.addItemToInventory(new Item("Item2", "C-1P5-GF9-3HC", "123.56"));
+        testInventory.addItemToInventory(new Item("Item3", "C-1K5-GL9-3HC", "299"));
+        testInventory.addItemToInventory(new Item("Item4", "C-1S5-GK9-3HC", "98.21"));
+
+        //Search for item
+        Item actual = testInventory.searchBySerialNumber("C-3T5-GY9-3DC");
+
+        assertEquals(expected, actual);
+    }
+
+
+
 
 }
