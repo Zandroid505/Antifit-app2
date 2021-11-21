@@ -1,0 +1,115 @@
+/*
+ *  UCF COP3330 Fall 2021 Application Assignment 2 Solution
+ *  Copyright 2021 Zakaria Antifit
+ */
+
+@startuml
+'https://plantuml.com/class-diagram
+
+javafx.application.Application <|-- InventoryManagementApplication
+class MainMenuController implements javafx.fxml.Initializable
+Item *-- Inventory
+Inventory o-- MainMenuController
+
+class InventoryManagementApplication {
+    + start(Stage): void
+    + {static} main(String[]): void
+}
+
+class MainMenuController {
+    - fileChooser: FileChooser
+    - inventory: Inventory
+
+    'FXML variables
+    - inventoryTableView: TableView<Item>
+    - nameColumn: TableColumn<Item, String>
+    - serialNumColumn: TableColumn<Item, String>
+    - valueColumn: TableColumn<Item, String>
+
+    - nameTextField: TextField
+    - serialNumTextField: TextField
+    - valueTextField: TextField
+    - searchTextField: TextField
+
+    + initialize(URL, ResourceBundle): void
+    + addItemButtonPressed(): void
+
+    - nameInvalidMessage(boolean): boolean
+    - serialNumInvalidMessage(boolean): boolean
+    - valueInvalidMessage(boolean):boolean
+
+    + deleteItemButtonPressed(): void
+    + clearAllItemsButtonPressed(): void
+
+    + editNameCellEvent(TableColumn.CellEditEvent<Item, String>): void
+    + editSerialNumCellEvent(TableColumn.CellEditEvent<Item, String>): void
+    + editValueCellEvent(TableColumn.CellEditEvent<Item, String>): void
+
+    + searchButtonPressed(): void
+    - couldNotFindItemMessage(): void
+    + cancelButtonPressed(): void
+
+    + saveAsTSVFile(): void
+    + saveAsHTMLFile(): void
+    + saveAsJSONFile(): void
+
+    - saveSystem(File, String): void
+    - saveSystemAsJsonObject(File, JsonArray): void
+
+    + loadTSVFileIntoInventory(): void
+    + loadHTMLFileIntoInventory(): void
+    + loadJsonFileIntoInventory(): void
+    - errorOpeningInventoryMessage(): void
+}
+
+class Inventory {
+    - currInventory: ObservableList<Item>
+
+    + validateItemName(String): boolean
+    + validateItemSerialNum(String): boolean
+    - serialNumExists(String): boolean
+    + validateItemValue(String): boolean
+
+    + formatValue(String): String
+    + addItemToInventory(Item): void
+    + deleteItemFromInventory(Item): void
+    + clearAllItems(): void
+
+    + editName(String, Item): void
+    + editSerialNum(String, Item): void
+    + editValue(String, Item): void
+
+    + checkIfSerialNumber(String): boolean
+    + searchBySerialNumber(String): Item
+    + searchByName(String): Item
+
+    + createTSVFile(): String
+    + createHTMLFile(): String
+    + createJsonFile(): JsonArray
+
+    + openTSVFile(File): boolean
+    + openHTMLFile(File): boolean
+    + openJsonFile(File): boolean
+
+    + getCurrInventory(): ObservableList<Item>
+}
+
+class Item {
+    - name: SimpleStringProperty
+    - serialNumber: SimpleStringProperty
+    - value: SimpleStringProperty
+
+    + Item(String, String, String)
+
+    + getName(): String
+    + setName(String): void
+
+    + getSerialNumber: String
+    + setSerialNumber(String): void
+
+    + getValue(): String
+    + setValue(String): void
+}
+
+
+@enduml

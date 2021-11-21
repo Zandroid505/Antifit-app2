@@ -149,18 +149,6 @@ public class Inventory {
         return found;
     }
 
-    public void sortByName(int direction) {
-        //Sort currInventory by Name
-    }
-
-    public void sortBySerialNumber(int direction) {
-        //Sort currInventory by Serial #
-    }
-
-    public void sortByValue(int direction) {
-        //Sort currInventory by Value
-    }
-
     public String createTSVFile() {
         //Use StringBuilder to format text into TSV format
         StringBuilder formattedInventory = new StringBuilder();

@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class InventoryManagementApplication extends Application {
-    private SceneManager sceneManager = new SceneManager();
-    private MainMenuController mainMenuController = new MainMenuController();
 
     @Override
     public void start(Stage primaryStage) throws IOException {

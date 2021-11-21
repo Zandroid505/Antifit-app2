@@ -38,8 +38,6 @@ public class MainMenuController implements Initializable {
     @FXML private TextField valueTextField;
 
     @FXML private TextField searchTextField;
-    @FXML private ChoiceBox<String> sortBy = new ChoiceBox<>();
-    @FXML private ChoiceBox<String> directionOfSort = new ChoiceBox<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,14 +59,6 @@ public class MainMenuController implements Initializable {
 
         //Make value editable
         valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        //sortByStr = "None", "Name", "Serial #", "Value"
-        //sortBy(sortByStr)
-        sortBy.setItems(FXCollections.observableArrayList("None", "Name", "Serial #", "Value"));
-
-        //directionOfSortStr = "n/a", "Ascending", "Descending"
-        //directionOfSort(directionOfSortStr)
-        directionOfSort.setItems(FXCollections.observableArrayList("n/a", "Ascending", "Descending"));
     }
 
     public void addItemButtonPressed() {
@@ -257,29 +247,6 @@ public class MainMenuController implements Initializable {
         inventoryTableView.setItems(inventory.getCurrInventory());
     }
 
-    public void sortInventory() {
-        //get selected value from sortBy choiceBox
-        //get selected value from directionOfSort choiceBox
-        //if(directionOfSort choiceBox doesn't have default value)
-            //set to ascending
-
-        //if(directionOfSort is ascending)
-            //direction = 0
-        //else
-            //direction = 1
-
-        //if(sortBy == "Name")
-            //sortByName(direction)
-        //else if(sortBy == "Serial #")
-            //sortBySerialNumber(direction)
-        //else if(sortBy == "Value")
-            //sortByValue(direction)
-        //else
-            //Do nothing
-
-        //Clear tableView
-        //Redisplay currInventory in tableView
-    }
 
     public void saveAsTSVFile() {
         fileChooser.setTitle("Save Dialog");

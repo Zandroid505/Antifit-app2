@@ -23,10 +23,6 @@ public class Item {
         return name.get();
     }
 
-    public SimpleStringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
     }
@@ -35,20 +31,12 @@ public class Item {
         return serialNumber.get();
     }
 
-    public SimpleStringProperty serialNumberProperty() {
-        return serialNumber;
-    }
-
     public void setSerialNumber(String serialNumber) {
         this.serialNumber.set(serialNumber);
     }
 
     public String getValue() {
         return value.get();
-    }
-
-    public SimpleStringProperty valueProperty() {
-        return value;
     }
 
     public void setValue(String value) {
