@@ -305,14 +305,12 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    private void saveSystemAsJsonObject(File outFile, JsonArray jsonArray) {
+    private void saveSystemAsJsonObject(File outFile, String jsonString) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         //try
         try (PrintWriter printWriter = new PrintWriter(outFile)){
-            System.out.println(jsonArray.getAsString());
-
-            printWriter.write(jsonArray.getAsString());
+            printWriter.write(jsonString);
         }
         //catch(FileNotFoundException)
         catch(IOException e) {
@@ -344,15 +342,7 @@ public class MainMenuController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("html file", "*.html"));
 
         //get user chosen file
-        File listFile = fileChooser.showOpenDialog(new Stage());
-
-        //if(.txt)
-
-        //openTSVFile(user chosen file)
-        //if(.html)
-        //openHTMLFile(user chosen file)
-        //if(.json)
-        //openJsonFile(user chosen file)
+        File inventoryFile = fileChooser.showOpenDialog(new Stage());
     }
 
     public void loadJsonFileIntoInventory() {
@@ -361,15 +351,13 @@ public class MainMenuController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("json file", "*.json"));
 
         //get user chosen file
-        File listFile = fileChooser.showOpenDialog(new Stage());
-
-        //if(.txt)
-
-        //openTSVFile(user chosen file)
-        //if(.html)
-        //openHTMLFile(user chosen file)
-        //if(.json)
-        //openJsonFile(user chosen file)
+        File inventoryFile = fileChooser.showOpenDialog(new Stage());
+        if(inventoryFile != null) {
+            fileChooser.setInitialDirectory(inventoryFile.getParentFile());
+            inventory.clearAllItems();
+            if(!inventory.openJsonFile(inventoryFile))
+                errorOpeningInventoryMessage();
+        }
     }
 
     private void errorOpeningInventoryMessage() {

@@ -167,26 +167,43 @@ public class Inventory {
         return "";
     }
 
-    public JsonArray createJsonFile() {
+    public String createJsonFile() {
         //Create JSON object
         JsonObject tempObj = new JsonObject();
         JsonArray jsonArray = new JsonArray();
+        JsonObject obj = new JsonObject();
+        StringBuilder jsonText = new StringBuilder();
 
-        //Assign items to it
-        for(Item i: currInventory) {
-            tempObj.addProperty("Name", i.getName());
-            tempObj.addProperty("Serial Number", i.getSerialNumber());
-            tempObj.addProperty("Value", i.getValue());
+        jsonText.append("{\n\t\"Item\":[\n\t\t");
 
-            JsonObject obj = new JsonObject();
-            obj.add("Item", obj);
+        int i;
+        for(i = 0; i < currInventory.size() - 1; i++) {
+            tempObj.addProperty("Name", currInventory.get(i).getName());
+            tempObj.addProperty("Serial Number", currInventory.get(i).getSerialNumber());
+            tempObj.addProperty("Value", currInventory.get(i).getValue());
 
-            jsonArray.add(obj);
-
+            jsonText.append(tempObj).append(",\n\t\t");
         }
 
+        tempObj.addProperty("Name", currInventory.get(i).getName());
+        tempObj.addProperty("Serial Number", currInventory.get(i).getSerialNumber());
+        tempObj.addProperty("Value", currInventory.get(i).getValue());
+        jsonText.append(tempObj);
+
+        jsonText.append("\n\t]\n}");
+
+        //Assign items to it
+//        for(Item i: currInventory) {
+//            tempObj.addProperty("Name", i.getName());
+//            tempObj.addProperty("Serial Number", i.getSerialNumber());
+//            tempObj.addProperty("Value", i.getValue());
+//
+//            jsonText.append(tempObj).append(",\n\t\t");
+//        }
+//        jsonText.append("]\n}");
+
         //return JSON object
-        return jsonArray;
+        return jsonText.toString();
     }
 
     public boolean openTSVFile(File inventoryFile) {
@@ -233,7 +250,18 @@ public class Inventory {
 
             JsonObject obj = (JsonObject)JsonParser.parseReader(fileReader);
 
-            //JsonArray iterator = obj.getAsJsonArray()
+            JsonArray iterator = obj.getAsJsonArray("Item");
+
+            for(int i = 0; i < iterator.size(); i++) {
+                JsonObject item = iterator.get(i).getAsJsonObject();
+
+                Item itemTemp = new Item(item.get("Name").getAsString(), item.get("Serial Number").getAsString(),
+                        item.get("Value").getAsString());
+
+                addItemToInventory(itemTemp);
+            }
+
+            return true;
         }
         //catch(IOException | NoSuchElementException | IllegalStateException)
         catch(IOException | NoSuchElementException | IllegalStateException e) {
@@ -242,7 +270,6 @@ public class Inventory {
             //return false
             return false;
         }
-        return false;
     }
 
 

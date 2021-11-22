@@ -36,7 +36,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#saveAsJSONFile" text="JSON" />
                     </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Load as">
+                  <Menu mnemonicParsing="false" text="Load">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#loadTSVFileIntoInventory" text="TSV" />
                         <MenuItem mnemonicParsing="false" onAction="#loadHTMLFileIntoInventory" text="HTML" />
