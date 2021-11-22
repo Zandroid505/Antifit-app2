@@ -54,7 +54,7 @@ class MainMenuController {
     + saveAsJSONFile(): void
 
     - saveSystem(File, String): void
-    - saveSystemAsJsonObject(File, JsonArray): void
+    - saveSystemAsJsonObject(File, String): void
 
     + loadTSVFileIntoInventory(): void
     + loadHTMLFileIntoInventory(): void
@@ -85,7 +85,7 @@ class Inventory {
 
     + createTSVFile(): String
     + createHTMLFile(): String
-    + createJsonFile(): JsonArray
+    + createJsonFile(): String
 
     + openTSVFile(File): boolean
     + openHTMLFile(File): boolean
@@ -104,7 +104,7 @@ class Item {
     + getName(): String
     + setName(String): void
 
-    + getSerialNumber: String
+    + getSerialNumber(): String
     + setSerialNumber(String): void
 
     + getValue(): String
