@@ -41,7 +41,7 @@ public class Inventory {
         boolean found = false;
 
         for(Item i: currInventory) {
-            if(i.getSerialNumber().matches(serialNum)) {
+            if(i.getSerialNumber().equalsIgnoreCase(serialNum)) {
                 found = true;
                 break;
             }
