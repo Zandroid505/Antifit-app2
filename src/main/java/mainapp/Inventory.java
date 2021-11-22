@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -64,7 +62,7 @@ public class Inventory {
                 //return true
                 found = true;
         } catch(NumberFormatException e) {
-            found = false;
+            e.printStackTrace();
         }
         //else
             //return false
@@ -170,8 +168,6 @@ public class Inventory {
     public String createJsonFile() {
         //Create JSON object
         JsonObject tempObj = new JsonObject();
-        JsonArray jsonArray = new JsonArray();
-        JsonObject obj = new JsonObject();
         StringBuilder jsonText = new StringBuilder();
 
         jsonText.append("{\n\t\"Item\":[\n\t\t");

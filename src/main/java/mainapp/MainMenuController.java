@@ -5,7 +5,6 @@
 
 package mainapp;
 
-import com.google.gson.JsonArray;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,10 +13,7 @@ import javafx.scene.control.*;
 
 import java.io.*;
 import java.net.URL;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import com.google.gson.JsonObject;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
@@ -292,7 +288,7 @@ public class MainMenuController implements Initializable {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         //try
-        try (PrintWriter printWriter = new PrintWriter(outFile);) {
+        try (PrintWriter printWriter = new PrintWriter(outFile)) {
             //Write text to File
             printWriter.write(listText);
         }
@@ -342,7 +338,6 @@ public class MainMenuController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("html file", "*.html"));
 
         //get user chosen file
-        File inventoryFile = fileChooser.showOpenDialog(new Stage());
     }
 
     public void loadJsonFileIntoInventory() {
